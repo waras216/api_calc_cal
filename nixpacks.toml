@@ -1,5 +1,11 @@
-[build]
-builder = "nixpacks"
+[phases.setup]
+cmds = [
+    "apt-get update",
+    "apt-get install -y pkg-config default-libmysqlclient-dev build-essential",
+    "python3 -m venv /opt/venv",
+    "/opt/venv/bin/pip install --upgrade pip",
+    "/opt/venv/bin/pip install -r requirements.txt"
+]
 
-[deploy]
-startCommand = "python manage.py migrate && gunicorn api_calc_cal.wsgi:application --bind 0.0.0.0:$PORT"
+[start]
+cmd = "/opt/venv/bin/python manage.py migrate && /opt/venv/bin/gunicorn backend_calories_calc.wsgi:application --bind 0.0.0.0:$PORT"

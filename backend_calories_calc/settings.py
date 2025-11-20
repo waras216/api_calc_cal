@@ -55,15 +55,12 @@ WSGI_APPLICATION = 'backend_calories_calc.wsgi.application'
 # BASE DB (local)
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'apicalculadora',
         'USER': 'root',
         'PASSWORD': 'nkiLkpdjKUEXgXIITaYOJtzEvgOufQRi',
         'HOST': 'mysql.railway.internal',
         'PORT': '3306',
-        'OPTIONS': {
-            'autocommit': True,
-        }
     }
 }
 
