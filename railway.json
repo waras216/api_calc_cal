@@ -1,8 +1,6 @@
 {
   "build": {
-    "builder": "NIXPACKS"
-  },
-  "deploy": {
-    "startCommand": "python manage.py migrate && gunicorn backend_calories_calc.wsgi:application --bind 0.0.0.0:$PORT"
+    "builder": "NIXPACKS",
+    "buildCommand": "pip install -r requirements.txt"
   }
 }
