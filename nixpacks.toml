@@ -1,8 +1,11 @@
 [phases.setup]
-nixPkgs = ["python311", "mariadb"]
+nixPkgs = ["python311"]
 
 [phases.install]
-cmds = ["pip install --upgrade pip", "pip install -r requirements.txt"]
+cmds = [
+    "/opt/venv/bin/pip install --upgrade pip",
+    "/opt/venv/bin/pip install -r requirements.txt"
+]
 
 [start]
-cmd = "gunicorn backend_calories_calc.wsgi:application --bind 0.0.0.0:$PORT"
+cmd = "gunicorn backend_calories_calc.wsgi:application --bind 0.0.0.0:${PORT}"
