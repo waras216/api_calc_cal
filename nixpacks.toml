@@ -1,8 +1,5 @@
 [build]
-baseImage = "python:3.11-slim"
+builder = "nixpacks"
 
-[phases.setup]
-cmds = ["pip install -r requirements.txt"]
-
-[start]
-cmd = "python manage.py migrate && gunicorn api_calc_cal.wsgi:application --bind 0.0.0.0:$PORT"
+[deploy]
+startCommand = "python manage.py migrate && gunicorn api_calc_cal.wsgi:application --bind 0.0.0.0:$PORT"
