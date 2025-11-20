@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-import dj_database_url
+#import dj_database_url
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,11 +54,17 @@ WSGI_APPLICATION = 'backend_calories_calc.wsgi.application'
 
 # BASE DB (local)
 DATABASES = {
-    'default': dj_database_url.config(
-        default='mysql://root:nkiLkpdjKUEXgXIITaYOJtzEvgOufQRi@mysql.railway.internal:3306/apicalculadora',
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
+    'default': {
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'apicalculadora',
+        'USER': 'root',
+        'PASSWORD': 'nkiLkpdjKUEXgXIITaYOJtzEvgOufQRi',
+        'HOST': 'mysql.railway.internal',
+        'PORT': '3306',
+        'OPTIONS': {
+            'autocommit': True,
+        }
+    }
 }
 
 # Railway DB override
