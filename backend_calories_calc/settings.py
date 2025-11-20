@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'calculadora_cal',
         'USER': 'admin',
         'PASSWORD': 'hola',
-        'HOST': '172.23.1.255',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
@@ -120,9 +120,34 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = os.environ.get('RAILWAY_STATIC_URL','static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+import os
+import dj_database_url
+
+if 'RAILWAY_STATIC_URL' in os.environ:
+    DATABASES ={
+        'default': dj_database_url.config(
+            default=os.environ.get('RAILWAY_URL'),
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+ALLLOWED_HOSTS = ['.railwayapp', 'localhost', '127.0.0.1']
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
