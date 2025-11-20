@@ -1,21 +1,8 @@
-[nixpacks]
-entrypoint = "bash start.sh"
-
 [phases.setup]
-nixPkgs = ["python3", "pip"]
+nixPkgs = ["python3", "mariadb"]
 
 [phases.install]
-cmds = [
-  "python3 -m venv /opt/venv",
-  "source /opt/venv/bin/activate",
-  "pip install --upgrade pip",
-  "pip install -r requirements.txt"
-]
-
-[phases.build]
-cmds = [
-  "echo 'Build completo'"
-]
+cmds = ["pip install -r requirements.txt"]
 
 [start]
-cmd = "bash start.sh"
+cmd = "gunicorn backend_calories_calc.wsgi:application --bind 0.0.0.0:$PORT"
