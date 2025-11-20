@@ -1,19 +1,14 @@
 [phases.setup]
-# Usamos solo "python3" y "mariadb" como hicimos antes.
 nixPkgs = [
     "python3",
     "mariadb" 
 ]
 
 [phases.install]
-# CORRECCIÓN: Primero crea el entorno virtual (venv) y luego activa/usa pip.
-# Nixpacks suele hacer esto automáticamente, pero al usar nixpacks.toml, es mejor forzarlo.
 cmds = [
     "python -m venv .venv",
-    ". .venv/bin/activate",
-    "pip install -r requirements.txt"
+    ". .venv/bin/activate && pip install -r requirements.txt"
 ]
 
 [start]
-# El comando de inicio debe estar precedido por la activación del venv.
 cmd = ". .venv/bin/activate && gunicorn backend_calories_calc.wsgi:application --bind 0.0.0.0:$PORT"
