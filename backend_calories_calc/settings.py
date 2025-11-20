@@ -1,10 +1,6 @@
 import os
 from pathlib import Path
-import dj_database_url
 
-# Opcional si usas PyMySQL (recomendado)
-import pymysql
-pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -58,11 +54,11 @@ WSGI_APPLICATION = 'backend_calories_calc.wsgi.application'
 # BASE DB (local)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'calculadora_cal',
-        'USER': 'admin',
-        'PASSWORD': 'hola',
-        'HOST': '127.0.0.1',
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'apicalculadora',
+        'USER': 'root',
+        'PASSWORD': 'nkiLkpdjKUEXgXIITaYOJtzEvgOufQRi',
+        'HOST': 'mysql.railway.internal',
         'PORT': '3306',
     }
 }
