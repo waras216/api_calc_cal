@@ -1,0 +1,15 @@
+[phases.setup]
+# Incluye los paquetes del sistema necesarios
+nixPkgs = [
+    "python3",
+    "pip",
+    "mariadb" 
+]
+
+[phases.install]
+# La instalación de pip se mantiene igual
+cmds = ["pip install -r requirements.txt"]
+
+[start]
+# Comando de inicio de Gunicorn para tu aplicación
+cmd = "gunicorn backend_calories_calc.wsgi:application --bind 0.0.0.0:$PORT"
